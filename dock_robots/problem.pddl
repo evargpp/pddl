@@ -39,16 +39,9 @@
         (kontener-na-gorze s4 c)
 
         (droga m1 m2)
-        (droga m2 m1)
-
         (droga m2 m4)
-        (droga m4 m2)
-
         (droga m4 m3)
-        (droga m3 m4)
-
         (droga m3 m1)
-        (droga m1 m3)
 
         (samochod m2 a1)
 
@@ -62,9 +55,13 @@
 ;            (kontener-na-kontenerze s12 d a)
 ;            (kontener-na-gorze s12 d)
 ;            (kontener-na-samochodzie c a1)
-             (kontener-na-stercie s4 f)
-             (kontener-na-kontenerze s4 e f)
-             (kontener-na-gorze s4 e)
+;             (kontener-na-stercie s4 f)
+;             (kontener-na-kontenerze s4 e f)
+;             (kontener-na-gorze s4 e)
+
+            (kontener-na-stercie s4 f)
+            (kontener-na-kontenerze s4 e f)
+            (kontener-na-gorze s4 e)
       )
     )
 )

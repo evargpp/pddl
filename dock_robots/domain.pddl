@@ -127,6 +127,7 @@
             (ramie-zurawia ?zuraw ?kontener)
             (miejsce-zuraw ?miejsce ?zuraw)
             (samochod ?miejsce ?samochod)
+            (not (exists (?k1) (kontener-na-samochodzie ?k1 ?samochod)))
         )
         :effect (and
             (not (ramie-zurawia ?zuraw ?kontener))
@@ -134,19 +135,15 @@
         )
     )
 
-;    (:action opusc-na-samochod
-;        :parameters (?kontener - kontener ?samochod - samochod)
-;        :precondition (and
-;        )
-;        :effect (and
-;        )
-;    )
 
     (:action jedz
         :parameters (?start - miejsce ?koniec - miejsce ?samochod - samochod)
         :precondition (and
             (samochod ?start ?samochod)
-            (droga ?start ?koniec)
+            (or
+                (droga ?start ?koniec)
+                (droga ?koniec ?start)
+            )
         )
         :effect (and
             (not (samochod ?start ?samochod))
