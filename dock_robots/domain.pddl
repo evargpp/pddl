@@ -17,11 +17,15 @@
     )
 
     (:action podnies-ze-sterty
-        :parameters (?kontener - kontener ?zuraw - zuraw ?sterta - sterta)
+        :parameters (?kontener - kontener ?zuraw - zuraw ?sterta - sterta ?miejsce - miejsce)
         :precondition (and
             (kontener-na-gorze ?sterta ?kontener)
+            (miejsce-sterta ?miejsce ?sterta)
+            (miejsce-zuraw ?miejsce ?zuraw)
+            (not (ramie-zurawia ?zuraw ?kontener))
         )
         :effect (and
+            (not (kontener-na-gorze ?sterta ?kontener))
             (ramie-zurawia ?zuraw ?kontener)
         )
     )
@@ -34,13 +38,21 @@
 ;        )
 ;    )
 
-;    (:action opusc-na-sterte
-;        :parameters (?kontener - kontener ?sterta - sterta)
-;        :precondition (and
-;        )
-;        :effect (and
-;        )
-;    )
+    (:action opusc-na-sterte
+        :parameters (?kontener - kontener ?sterta - sterta ?zuraw - zuraw ?miejsce - miejsce ?kontener-na-gorze - kontener)
+        :precondition (and
+            (ramie-zurawia ?zuraw ?kontener)
+            (miejsce-sterta ?miejsce ?sterta)
+            (miejsce-zuraw ?miejsce ?zuraw)
+            (kontener-na-gorze ?sterta ?kontener-na-gorze)
+        )
+        :effect (and
+            (not (ramie-zurawia ?zuraw ?kontener))
+            (not (kontener-na-gorze ?sterta ?kontener-na-gorze))
+            (kontener-na-gorze ?sterta ?kontener)
+            (kontener-na-kontenerze ?sterta ?kontener ?kontener-na-gorze)
+        )
+    )
 
 ;    (:action opusc-na-samochod
 ;        :parameters (?kontener - kontener ?samochod - samochod)

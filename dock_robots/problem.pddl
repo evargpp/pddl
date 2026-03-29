@@ -20,19 +20,22 @@
         (miejsce-sterta m3 s32)
         (miejsce-sterta m4 s4)
 
-        (sterta-pusta s11)
-        (sterta-pusta s2)
-        (sterta-pusta s31)
-        (sterta-pusta s32)
+        (kontener-na-stercie s11 d)
+        (kontener-na-kontenerze s11 a d)
+        (kontener-na-gorze s11 a)
 
         (kontener-na-stercie s12 e)
         (kontener-na-kontenerze s12 b e)
-        (kontener-na-kontenerze s12 d b)
-        (kontener-na-gorze s12 d)
+        (kontener-na-gorze s12 b)
+
+        (sterta-pusta s2)
+
+        (sterta-pusta s31)
+        (sterta-pusta s32)
 
         (kontener-na-stercie s4 f)
         (kontener-na-kontenerze s4 c f)
-        (kontener-na-gorze s4 f)
+        (kontener-na-gorze s4 c)
 
         (droga m1 m2)
         (droga m2 m1)
@@ -47,12 +50,13 @@
         (droga m1 m3)
 
         (samochod m2)
-
-
     )
     (:goal
         (and
-            (ramie-zurawia z1 d)
-        )
+            (kontener-na-stercie s12 e)
+            (kontener-na-kontenerze s12 b e)
+            (kontener-na-kontenerze s12 a b)
+            (kontener-na-gorze s12 a)
+      )
     )
 )
