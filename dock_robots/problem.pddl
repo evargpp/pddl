@@ -5,6 +5,7 @@
         z1 z2 z31 z32 z4 - zuraw
         s11 s12 s2 s31 s32 s4 - sterta
         a b c d e f - kontener
+        a1 - samochod
     )
     (:init
         (miejsce-zuraw m1 z1)
@@ -49,17 +50,21 @@
         (droga m3 m1)
         (droga m1 m3)
 
-        (samochod m2)
+        (samochod m2 a1)
 
     )
     (:goal
         ; e b a d
         (and
-            (kontener-na-stercie s12 e)
-            (kontener-na-kontenerze s12 b e)
-            (kontener-na-kontenerze s12 a b)
-            (kontener-na-kontenerze s12 d a)
-            (kontener-na-gorze s12 d)
+;            (kontener-na-stercie s12 e)
+;            (kontener-na-kontenerze s12 b e)
+;            (kontener-na-kontenerze s12 a b)
+;            (kontener-na-kontenerze s12 d a)
+;            (kontener-na-gorze s12 d)
+;            (kontener-na-samochodzie c a1)
+             (kontener-na-stercie s4 f)
+             (kontener-na-kontenerze s4 e f)
+             (kontener-na-gorze s4 e)
       )
     )
 )
