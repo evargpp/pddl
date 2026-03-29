@@ -50,13 +50,16 @@
         (droga m1 m3)
 
         (samochod m2)
+
     )
     (:goal
+        ; e b a d
         (and
             (kontener-na-stercie s12 e)
             (kontener-na-kontenerze s12 b e)
             (kontener-na-kontenerze s12 a b)
-            (kontener-na-gorze s12 a)
+            (kontener-na-kontenerze s12 d a)
+            (kontener-na-gorze s12 d)
       )
     )
 )

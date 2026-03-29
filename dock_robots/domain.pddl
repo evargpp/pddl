@@ -16,19 +16,49 @@
         (ramie-zurawia ?zuraw ?kontener)
     )
 
-    (:action podnies-ze-sterty
-        :parameters (?kontener - kontener ?zuraw - zuraw ?sterta - sterta ?miejsce - miejsce)
+    (:action podnies-ze-sterty-gdy-jest-cos-pod-nim
+        :parameters (
+            ?kontener - kontener 
+            ?zuraw - zuraw 
+            ?sterta - sterta 
+            ?miejsce - miejsce
+            ?kontener-pod-spodem - kontener
+        )
         :precondition (and
             (kontener-na-gorze ?sterta ?kontener)
+            (kontener-na-kontenerze ?sterta ?kontener ?kontener-pod-spodem)
             (miejsce-sterta ?miejsce ?sterta)
             (miejsce-zuraw ?miejsce ?zuraw)
-            (not (ramie-zurawia ?zuraw ?kontener))
+            (not (exists (?k1) (ramie-zurawia ?zuraw ?k1)))
         )
         :effect (and
             (not (kontener-na-gorze ?sterta ?kontener))
+            (kontener-na-gorze ?sterta ?kontener-pod-spodem)
             (ramie-zurawia ?zuraw ?kontener)
         )
     )
+
+    (:action podnies-ze-sterty-gdy-jest-tylko-jeden
+        :parameters (
+            ?kontener - kontener 
+            ?zuraw - zuraw 
+            ?sterta - sterta 
+            ?miejsce - miejsce
+        )
+        :precondition (and
+            (kontener-na-gorze ?sterta ?kontener)
+            (kontener-na-stercie ?sterta ?kontener)
+            (miejsce-sterta ?miejsce ?sterta)
+            (miejsce-zuraw ?miejsce ?zuraw)
+            (not (exists (?k1) (ramie-zurawia ?zuraw ?k1)))
+        )
+        :effect (and
+            (not (kontener-na-gorze ?sterta ?kontener))
+            (sterta-pusta ?sterta)
+            (ramie-zurawia ?zuraw ?kontener)
+        )
+    )
+
 
 ;    (:action podnies-z-samochodu
 ;        :parameters (?kontener - kontener ?zuraw - zuraw ?samochod - samochod)
