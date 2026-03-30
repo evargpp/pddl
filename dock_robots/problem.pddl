@@ -43,8 +43,7 @@
         (droga m4 m3)
         (droga m3 m1)
 
-        (samochod m2 a1)
-
+        (miejsce-samochod m2 a1)
     )
     (:goal
         ; e b a d
@@ -61,7 +60,11 @@
 
             (kontener-na-stercie s4 f)
             (kontener-na-kontenerze s4 e f)
-            (kontener-na-gorze s4 e)
+            (kontener-na-kontenerze s4 d e)
+            (kontener-na-kontenerze s4 c d)
+            (kontener-na-kontenerze s4 b c)
+            (kontener-na-kontenerze s4 a b)
+            (kontener-na-gorze s4 a)
       )
     )
 )

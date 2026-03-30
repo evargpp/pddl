@@ -3,26 +3,26 @@
     (:types
         sterta zuraw miejsce kontener samochod
     )
-
     (:predicates
         (miejsce-zuraw ?miejsce - miejsce ?zuraw - zuraw)
         (miejsce-sterta ?miejsce - miejsce ?sterta - sterta)
-        (samochod ?miejsce - miejsce ?samochod - samochod)
+        (miejsce-samochod ?miejsce - miejsce ?samochod - samochod)
         (droga ?start - miejsce ?koniec - miejsce)
-        (kontener-na-stercie ?sterta ?kontener)
-        (kontener-na-kontenerze ?sterta ?kontener ?kontener)
-        (kontener-na-gorze ?sterta ?kontener)
-        (sterta-pusta ?sterta)
-        (ramie-zurawia ?zuraw ?kontener)
-        (kontener-na-samochodzie ?kontener ?samochod)
+        (kontener-na-stercie ?sterta - sterta ?kontener - kontener)
+        (kontener-na-kontenerze ?sterta - sterta ?kontener-wyzej - kontener ?kontener-nizej - kontener)
+        (kontener-na-gorze ?sterta - sterta ?kontener - kontener)
+        (sterta-pusta ?sterta - sterta)
+        (ramie-zurawia ?zuraw - zuraw ?kontener - kontener)
+        (kontener-na-samochodzie ?kontener - kontener ?samochod - zuraw)
     )
 
+
     (:action podnies-ze-sterty-gdy-jest-cos-pod-nim
-        :parameters (
+        :parameters ( 
             ?kontener - kontener 
             ?zuraw - zuraw 
             ?sterta - sterta 
-            ?miejsce - miejsce
+            ?miejsce - miejsce 
             ?kontener-pod-spodem - kontener
         )
         :precondition (and
@@ -30,18 +30,21 @@
             (kontener-na-kontenerze ?sterta ?kontener ?kontener-pod-spodem)
             (miejsce-sterta ?miejsce ?sterta)
             (miejsce-zuraw ?miejsce ?zuraw)
-            (not (exists (?k1) (ramie-zurawia ?zuraw ?k1)))
+            (not (exists
+                    (?k1)
+                    (ramie-zurawia ?zuraw ?k1)))
         )
         :effect (and
             (not (kontener-na-gorze ?sterta ?kontener))
-            (kontener-na-kontenerze ?sterta ?kontener ?kontener-pod-spodem)
+            (not (kontener-na-kontenerze ?sterta ?kontener ?kontener-pod-spodem))
             (kontener-na-gorze ?sterta ?kontener-pod-spodem)
             (ramie-zurawia ?zuraw ?kontener)
         )
     )
 
+
     (:action podnies-ze-sterty-gdy-jest-tylko-jeden
-        :parameters (
+        :parameters ( 
             ?kontener - kontener 
             ?zuraw - zuraw 
             ?sterta - sterta 
@@ -52,11 +55,13 @@
             (kontener-na-stercie ?sterta ?kontener)
             (miejsce-sterta ?miejsce ?sterta)
             (miejsce-zuraw ?miejsce ?zuraw)
-            (not (exists (?k1) (ramie-zurawia ?zuraw ?k1)))
+            (not (exists
+                    (?k1)
+                    (ramie-zurawia ?zuraw ?k1)))
         )
         :effect (and
             (not (kontener-na-gorze ?sterta ?kontener))
-            (kontener-na-stercie ?sterta ?kontener)
+            (not (kontener-na-stercie ?sterta ?kontener))
             (sterta-pusta ?sterta)
             (ramie-zurawia ?zuraw ?kontener)
         )
@@ -64,17 +69,19 @@
 
 
     (:action podnies-z-samochodu
-        :parameters (
+        :parameters ( 
             ?kontener - kontener 
             ?zuraw - zuraw 
-            ?samochod - samochod
+            ?samochod - samochod 
             ?miejsce - miejsce
         )
         :precondition (and
             (miejsce-zuraw ?miejsce ?zuraw)
-            (samochod ?miejsce ?samochod)
+            (miejsce-samochod ?miejsce ?samochod)
             (kontener-na-samochodzie ?kontener ?samochod)
-            (not (exists (?k1) (ramie-zurawia ?zuraw ?k1)))
+            (not (exists
+                    (?k1)
+                    (ramie-zurawia ?zuraw ?k1)))
         )
         :effect (and
             (not (kontener-na-samochodzie ?kontener ?samochod))
@@ -84,7 +91,13 @@
 
 
     (:action opusc-na-sterte-gdy-cos-juz-na-niej-jest
-        :parameters (?kontener - kontener ?sterta - sterta ?zuraw - zuraw ?miejsce - miejsce ?kontener-na-gorze - kontener)
+        :parameters ( 
+            ?kontener - kontener 
+            ?sterta - sterta 
+            ?zuraw - zuraw 
+            ?miejsce - miejsce 
+            ?kontener-na-gorze - kontener
+        )
         :precondition (and
             (ramie-zurawia ?zuraw ?kontener)
             (miejsce-sterta ?miejsce ?sterta)
@@ -99,8 +112,14 @@
         )
     )
 
+
     (:action opusc-na-sterte-gdy-jest-pusta
-        :parameters (?kontener - kontener ?sterta - sterta ?zuraw - zuraw ?miejsce - miejsce)
+        :parameters ( 
+            ?kontener - kontener 
+            ?sterta - sterta 
+            ?zuraw - zuraw 
+            ?miejsce - miejsce
+        )
         :precondition (and
             (ramie-zurawia ?zuraw ?kontener)
             (miejsce-sterta ?miejsce ?sterta)
@@ -116,18 +135,22 @@
         )
     )
 
+
+
     (:action opusc-na-samochod
-        :parameters (
+        :parameters ( 
             ?kontener - kontener 
-            ?samochod - samochod
+            ?samochod - samochod 
             ?zuraw - zuraw 
             ?miejsce - miejsce
         )
         :precondition (and
             (ramie-zurawia ?zuraw ?kontener)
             (miejsce-zuraw ?miejsce ?zuraw)
-            (samochod ?miejsce ?samochod)
-            (not (exists (?k1) (kontener-na-samochodzie ?k1 ?samochod)))
+            (miejsce-samochod ?miejsce ?samochod)
+            (not (exists
+                    (?k1)
+                    (kontener-na-samochodzie ?k1 ?samochod)))
         )
         :effect (and
             (not (ramie-zurawia ?zuraw ?kontener))
@@ -137,17 +160,21 @@
 
 
     (:action jedz
-        :parameters (?start - miejsce ?koniec - miejsce ?samochod - samochod)
+        :parameters ( 
+            ?start - miejsce 
+            ?koniec - miejsce 
+            ?samochod - samochod
+        )
         :precondition (and
-            (samochod ?start ?samochod)
+            (miejsce-samochod ?start ?samochod)
             (or
                 (droga ?start ?koniec)
                 (droga ?koniec ?start)
             )
         )
         :effect (and
-            (not (samochod ?start ?samochod))
-            (samochod ?koniec ?samochod)
+            (not (miejsce-samochod ?start ?samochod))
+            (miejsce-samochod ?koniec ?samochod)
         )
     )
 )
